@@ -1,0 +1,30 @@
+#Question 2
+try:
+    waterlv = open('/blue/bsc4452/share/Class_Files/data/CO-OPS__8729108__wl.csv')
+    watermax = 0.0
+    watermin = 10.0
+    watersum = 0.0
+    count = 0.0
+    for line in waterlv:
+        line = line.rstrip()
+        count+= 1
+        if line.startswith('2018-10-10 18:18'):
+            continue
+        if line.startswith('2018'):
+            water_day = line[17:22]
+            watersum=watersum+float(water_day)
+            try:
+                if float(water_day) > float(watermax):
+                    watermax=water_day
+                    watermaxd = line[0:16]
+                if float(water_day) < float(watermin):
+                    watermin=water_day
+                    watermind = line[0:16]
+            except:
+                print ("Failure in search")
+    avg = float(watersum)/count
+    print (f"The maximum level was {watermax} in {watermaxd[0:10]} at {watermaxd[11:16]}")
+    print (f"The minimum level was {watermin} in {watermind[0:10]} at {watermind[11:16]}")
+    print (f"The total water accumulated is {watersum}, which averages to {avg}")
+except:
+    print("File not Found")
