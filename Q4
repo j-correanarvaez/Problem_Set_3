@@ -1,0 +1,29 @@
+#Question 4
+try:
+    waterlv = open('/blue/bsc4452/share/Class_Files/data/CO-OPS__8729108__wl.csv')
+    change = 0.0
+    for line in waterlv:
+        line = line.rstrip()
+        if line.startswith('2018'):
+            water_day = line[17:22]
+            try:
+                value = line[17]
+                if int(value) > -1:
+                    n=0
+                    try:
+                        if line.startswith('2018-10-09 00:00'):
+                            water_pre = water_day
+                        else:
+                            if (float(water_day) - float(water_pre)) > 0.25:
+                                watermind = line[0:16]
+                                print (f"High Flood Rate at: {watermind}")
+                                change = float(water_day) - float(water_pre)
+                            water_pre = water_day
+                            if float(water_day) > 5:
+                                print(f"Water level: {water_day} Too High! Record: {watermind}")
+                    except:
+                        print ("Failure in search")
+            except:
+                print(f"No Data at {line[0:16]}")
+except:
+    print("File not Found")
