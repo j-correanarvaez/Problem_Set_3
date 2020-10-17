@@ -1,0 +1,24 @@
+#Question 3
+try:
+    waterlv = open('/blue/bsc4452/share/Class_Files/data/CO-OPS__8729108__wl.csv')
+    change = 0.0
+    for line in waterlv:
+        line = line.rstrip()
+        if line.startswith('2018-10-10 18:18'):
+            continue
+        if line.startswith('2018'):
+            water_day = line[17:22]
+            try:
+                if line.startswith('2018'):
+                    if line.startswith('2018-10-09 00:00'):
+                        water_pre = water_day
+                    else:
+                        if (float(water_day) - float(water_pre)) > change:
+                            change = float(water_day) - float(water_pre)
+                            watermind = line[0:16]
+                        water_pre = water_day
+            except:
+                print ("Failure in search")
+    print (f"The maximum increase was {change} at {watermind}")
+except:
+    print("File not Found")
